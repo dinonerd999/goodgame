@@ -1,5 +1,5 @@
 class GameObject {
-   float x, y, vx, vy, size, hp; 
+   float x, y, vx, vy, size, hp, w, h, diff, strokeWeight; 
    color myColor;
    
    GameObject(color blue) {
@@ -20,8 +20,19 @@ class GameObject {
      vx=vy=0;
    }
    
+   GameObject(float x, float y, float w, float h, color grey, float diff, int hp) {
+     this.x=x;
+     this.hp=hp;
+     this.y=y;
+     this.w=w;
+     this.h=h;
+     this.diff=diff;
+     myColor=grey;
+   }
+   
    void show() {
      fill(myColor);
+     noStroke();
      ellipse(x, y, size, size);
    }
    

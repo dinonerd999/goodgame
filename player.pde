@@ -1,14 +1,14 @@
 class Player extends GameObject {
   Player() {
-    super(width/2, height/2, 20, 1, blue);
+    super(width/2, height/2, 5, 1, blue);
   }
 
   void act() {
     super.act();
-    if (wKey) vy=-4;
-    if (aKey) vx=-4;
-    if (sKey) vy=4;
-    if (dKey) vx=4;
+    if (wKey) vy=-velocity;
+    if (aKey) vx=-velocity;
+    if (sKey) vy=velocity;
+    if (dKey) vx=velocity;
     if (!wKey && !sKey) vy=0;
     if (!aKey && !dKey) vx=0;
     if (x>width) x=width;
@@ -19,8 +19,16 @@ class Player extends GameObject {
   }
 
   void shoot() {
-    if (mousePressed) {
+    if (mousePressed && shootCooldown==0) {
       objects.add(new Bullet());
+      
+      shootCooldown=60;
+      shot=true;
+      screenShakeTimer=5;
+      
+      
+      
+      
     }
   }
 }
