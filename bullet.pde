@@ -1,6 +1,6 @@
 class Bullet extends GameObject {
   Bullet() {
-    super(myPlayer.x, myPlayer.y, 5, 1, blue);
+    super(myPlayer.x, myPlayer.y, 2, 1, blue);
     PVector aim = new PVector(mouseX-myPlayer.x, mouseY-myPlayer.y);
     aim.setMag(50);
     vx=aim.x;
