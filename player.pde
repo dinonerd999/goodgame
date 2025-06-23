@@ -1,42 +1,52 @@
 class Player extends GameObject {
   Player() {
-    super(width/2, height/2, 5, 1, blue);
+    super(width/2, height/2, 5, 10, tan);
   }
-  
+
 
   void act() {
-    //super.act();
-    
-    //if (wKey) vy=-velocity;
-    //if (aKey) vx=-velocity;
-    //if (sKey) vy=velocity;
-    //if (dKey) vx=velocity;
-    //if (!wKey && !sKey) vy=0;
-    //if (!aKey && !dKey) vx=0;
-    //if (x>width) x=width;
-    //if (x<0) x=0;
-    //if (y>height) y=height;
-    //if (y<0) y=0;
-    //shoot();
-  }
+    super.act();
+    shoot();
 
+    for (GameObject b : objects) {
 
-  
-  void shoot() {
-    if (mousePressed && shootCooldown==0) {
-      objects.add(new Bullet());
-      
-      shootCooldown=60;
-      shot=true;
-      screenShakeTimer=5;
-      
-      
-      
-      
+      if (b instanceof badBullet) {
+
+        if (dist(x, y, b.x, b.y)<10) {
+          b.hp=b.hp-1;
+          hp=hp-1;
+          println(hp);
+        }
+      }
     }
   }
-  
-  
-  
-  
+
+
+
+  void shoot() {
+    //println(shootCooldown);
+    float Bx=0,By=0;
+    if (mousePressed && shootCooldown==0) {
+      if (weaponHeld==PISTOL || weaponHeld==SKS) {
+        objects.add(new Bullet());
+        shootCooldown=60;
+        shot=true;
+      }
+      if (weaponHeld==DUEL) {
+        objects.add(new Bullet());
+        PVector aim = PVector.sub(new PVector(mx, my), new PVector(myPlayer.x, myPlayer.y));
+        PVector OffsetL = aim.copy();
+        OffsetL.rotate(20);
+        OffsetL.setMag(4);
+        aim.setMag(10);
+        Bx=OffsetL.x;
+        By=OffsetL.y;
+        objects.add(new Bullet(Bx, By, aim.x, aim.y));
+        //println(shootCooldown);
+
+        shootCooldown=60;
+        shot=true;
+      }
+    }
+  }
 }
